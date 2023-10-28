@@ -5,55 +5,37 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "cortex-debug",
-            "request": "launch",
-            "name": "Debug Blinky",
-            "servertype": "openocd",
-            "gdbPath": "/usr/bin/gdb-multiarch",
-            "cwd": "${workspaceRoot}",
-            "device": "STM32H743xx",
-            "svdFile": "./STM32H743.svd",
-            "preLaunchTask": "cargo build blinky",
-            "executable": "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/blinky",
-            "configFiles": [
-                "./openocd.cfg"
-            ],
-            "runToMain": true,
-        },
-        {
-            "type": "cortex-debug",
-            "request": "launch",
-            "name": "Debug SPI",
-            "servertype": "openocd",
-            "gdbPath": "/usr/bin/gdb-multiarch",
-            "cwd": "${workspaceRoot}",
-            "device": "STM32H743xx",
-            "svdFile": "./STM32H743.svd",
-            "preLaunchTask": "cargo build spi",
-            "executable": "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/spi",
-            "configFiles": [
-                "./openocd.cfg"
-            ],
-            "runToMain": true,
-        },
-        {
             "type": "probe-rs-debug",
             "request": "launch",
-            "name": "probe_rs Debug Blinky",
-            "cwd": "${workspaceFolder}",
-            "preLaunchTask": "cargo build blinky",
-            "programBinary": "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/blinky",
-            "chip": "STM32H743ZITx",
-            "connectUnderReset": true,
-            "runtimeExecutable": "probe-rs-debugger",
-            "runtimeArgs": [
-                "debug"
+            "name": "probe_rs Debug Crt",
+            "cwd": "${workspaceRoot}",
+            "connectUnderReset": false,
+            "chip": "STM32H745ZITx",
+            "preLaunchTask": "cargo build Crt",
+            "flashingConfig": {
+                "flashingEnabled": true,
+                "haltAfterReset": true
+            },
+            "coreConfigs": [
+                {
+                    "coreIndex": 0,
+                    "programBinary": "./target/thumbv7em-none-eabihf/debug/${fileBasenameNoExtension}"
+                }
+            ]
+        },
+        {
+            "type": "cortex-debug",
+            "request": "launch",
+            "name": "Openocd Debug Crt",
+            "servertype": "openocd",
+            "cwd": "${workspaceRoot}",
+            "device": "STM32H743xx",
+            "svdFile": "./STM32H743.svd",
+            "preLaunchTask": "cargo build Crt",
+            "executable": "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/${fileBasenameNoExtension}",
+            "configFiles": [
+                "./openocd.cfg"
             ],
-            "coreIndex": 0,
-            "flashingEnabled": true,
-            "resetAfterFlashing": true,
-            "haltAfterReset": true,
-            "consoleLogLevel": "Debug", //Error, Warn, Info, Debug, Trace
-        }
+        },
     ]
 }

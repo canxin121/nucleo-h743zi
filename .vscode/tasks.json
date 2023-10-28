@@ -4,32 +4,18 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "cargo build blinky",
+            "label": "cargo build Crt",
             "type": "shell",
             "command": "~/.cargo/bin/cargo", // note: full path to the cargo
             "args": [
                 "build",
                 "--bin",
-                "blinky",
+                "${fileBasenameNoExtension}",
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         },
-        {
-            "label": "cargo build spi",
-            "type": "shell",
-            "command": "~/.cargo/bin/cargo", // note: full path to the cargo
-            "args": [
-                "build",
-                "--bin",
-                "spi",
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        }
     ]
 }
